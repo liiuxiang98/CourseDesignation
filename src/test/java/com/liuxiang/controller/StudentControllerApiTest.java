@@ -1,6 +1,11 @@
 package com.liuxiang.controller;
 
 import com.liuxiang.support.BaseApiTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +14,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Epic("学生成绩管理系统")
+@Feature("学生与成绩 API 接口")
 class StudentControllerApiTest extends BaseApiTest {
 
     @Test
@@ -52,6 +59,8 @@ class StudentControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Story("学生管理")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("PUT /updateStudent - 修改学生信息成功")
     void updateStudent_success() throws Exception {
         String body = String.format(
@@ -145,6 +154,8 @@ class StudentControllerApiTest extends BaseApiTest {
     }
 
     @Test
+    @Story("端到端业务流程")
+    @Severity(SeverityLevel.BLOCKER)
     @DisplayName("学生完整流程 - 添加、查询、修改、录成绩、查图表")
     void studentFullFlow() throws Exception {
         String addBody = "{"

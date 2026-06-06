@@ -24,6 +24,18 @@ jobs:
       - name: Run Maven tests
         run: mvn test -B
 
+      - name: Generate Allure Report
+        if: always()
+        run: mvn allure:report -B
+
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin/
+          retention-days: 14
+
   frontend-build:
     name: Frontend Build
     runs-on: ubuntu-latest
