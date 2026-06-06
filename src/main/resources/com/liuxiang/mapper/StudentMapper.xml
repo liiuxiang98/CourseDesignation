@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuxiang.mapper.StudentMapper">
+    <insert id="addGrade">
+        insert into scores(student_id,course_id,score) values(#{studentId},#{courseId},#{score})
+    </insert>
+    <update id="updateStudent">
+        UPDATE students
+        <set>
+            <if test="studentName != null and studentName != ''">
+                student_name = #{studentName},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="birthDate != null">
+                birth_date = #{birthDate},
+            </if>
+            <if test="classId != null and classId != ''">
+                class_id = #{classId},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+        </set>
+        WHERE student_id = #{studentId}
+    </update>
+    <delete id="deleteStudent">
+        DELETE FROM students WHERE student_id = #{studentId}
+    </delete>
+    <select id="getGradeByStudentId" resultType="com.liuxiang.pojo.dto.ScoreVO">
+        SELECT
+        c.course_name AS courseName,
+        s.score AS score
+        FROM
+        scores s
+        JOIN
+        courses c ON s.course_id = c.course_id
+        WHERE
+        s.student_id = #{studentId}
+        ORDER BY
+        c.course_id
+    </select>
+    <select id="getGradeByStudentName" resultType="com.liuxiang.pojo.dto.ScoreDTO">
+<!--        根据学生姓名模糊匹配查询学号课程成绩-->
+        SELECT
+        s.student_id AS studentId,
+        c.course_id AS courseId,
+        s.score AS score
+        FROM
+        scores s
+        JOIN
+        courses c ON s.course_id = c.course_id
+        JOIN
+        students st ON s.student_id = st.student_id
+        WHERE
+        st.student_name LIKE CONCAT('%', #{studentName}, '%')
+        ORDER BY
+        s.student_id,
+        c.course_id
+    </select>
+    <select id="getGradeChart" resultType="com.liuxiang.pojo.dto.ChartVO">
+<!--        //根据学号查询单个学生姓名，课程名称，成绩-->
+        SELECT
+        st.student_name AS studentName,
+        c.course_name AS courseName,
+        s.score AS score
+        FROM
+        scores s
+        JOIN
+        courses c ON s.course_id = c.course_id
+        JOIN
+        students st ON s.student_id = st.student_id
+        WHERE
+        s.student_id = #{studentId}
+        ORDER BY
+        c.course_id
+        LIMIT 1000
+    </select>
+    <select id="getStudent" resultType="com.liuxiang.pojo.Student">
+        SELECT
+        student_id AS studentId,
+        student_name AS studentName,
+        gender,
+        birth_date AS birthDate,
+        class_id AS classId,
+        phone
+        FROM
+        students
+        WHERE
+        student_id = #{studentId}
+    </select>
+</mapper>

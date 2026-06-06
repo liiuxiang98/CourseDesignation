@@ -1,0 +1,25 @@
+# Maven / Java
+target/
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.iws
+*.ipr
+
+# 前端
+frontend/node_modules/
+frontend/dist/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 本地配置（如有敏感信息可放这里）
+application-local.yml
