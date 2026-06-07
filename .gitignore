@@ -23,3 +23,6 @@ Thumbs.db
 
 # 本地配置（如有敏感信息可放这里）
 application-local.yml
+
+# Allure 本地工具缓存
+.allure/
