@@ -44,7 +44,7 @@ class StudentControllerApiTest extends BaseApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(1))
                 .andExpect(jsonPath("$.data.studentId").value(SEED_STUDENT_ID))
-                .andExpect(jsonPath("$.data.studentName").value("张三"))
+                .andExpect(jsonPath("$.data.studentName").value("王五")) // ci-demo: 故意写错，演示 CI 拦截
                 .andExpect(jsonPath("$.data.gender").value(0))
                 .andExpect(jsonPath("$.data.phone").value("13800138000"));
     }
