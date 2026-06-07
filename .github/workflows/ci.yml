@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
+# PR 有新提交时取消同一分支上未跑完的旧 CI，节省配额、结果更清晰
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   backend-test:
     name: Backend Tests
